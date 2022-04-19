@@ -1,0 +1,2 @@
+- connectie niet in loop zetten, zal voor problemen zorgen
+- 
