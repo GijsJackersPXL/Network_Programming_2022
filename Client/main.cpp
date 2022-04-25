@@ -10,7 +10,7 @@ int main( void )
 
         //Incoming messages come in here
         zmq::socket_t client( context, ZMQ_SUB );
-        client.connect( "tcp://benternet.pxl-ea-ict.be:24042" );
+        client.connect( "tcp://127.0.0.1:5555" );
         client.setsockopt( ZMQ_SUBSCRIBE, "Yahtzee>", 8 );
 
         zmq::message_t * msg = new zmq::message_t();

@@ -19,18 +19,20 @@ int main( void )
         Server.connect( "tcp://benternet.pxl-ea-ict.be:24041" );
         std::cout << "connect" << std::endl;
 
+//        while( Server.connected() )
+//        {
+//            sleep( 2000 );
+//            Server.send( "Yahtzee>", 10 );
+//            std::cout << "Verzonden" << std::endl;
+//        }
+        zmq::message_t * msg = new zmq::message_t();
         while( Server.connected() )
         {
-            sleep( 2000 );
-            Server.send( "Yahtzee>", 10 );
-            std::cout << "Verzonden" << std::endl;
-
-//            for (int i = 0; i < 10; ++i)
-//            {
-//                Server.send("Message %d\n",12);
-//                //std::cout << "Verzonden" << std::endl;
-//            }
-//            std::cout << "na for" << std::endl;
+            Server.recv( msg );
+            std::string s( (char*) msg->data(), msg->size() );
+            std::cout << "Received : [" << s << "]" << std::endl;
+            Server.send( *msg );
+            std::cout << "Replied : [" << s << "]" << std::endl;
         }
     }
     catch( zmq::error_t & ex )
