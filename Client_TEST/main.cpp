@@ -1,4 +1,4 @@
-#include <iostream>
+ #include <iostream>
 #include <string>
 //#include <zmq.hpp>
 #include <zmq_addon.hpp>
@@ -12,7 +12,7 @@ int main( void )
         zmq::socket_t sock(ctx, zmq::socket_type::rep);
         sock.bind("tcp://127.0.0.1:5555");
 
-        while (1) {
+        while ( sock.connected() ) {
             zmq::message_t z_in;
             sock.recv(z_in);
 

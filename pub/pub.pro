@@ -8,5 +8,3 @@ LIBS += -L$$PWD/../lib -lzmq -lws2_32 -lIphlpapi
 INCLUDEPATH += $$PWD/../include
 
 SOURCES += main.cpp
-
-HEADERS +=
