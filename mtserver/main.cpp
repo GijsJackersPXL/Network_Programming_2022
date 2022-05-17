@@ -14,6 +14,17 @@ void *worker_routine (void *arg)
     zmq::socket_t socket (*context, ZMQ_REP);
     socket.connect ("inproc://workers");
 
+//    // Wait for next request from client
+//    zmq::message_t request;
+//    socket.recv (&request);
+//    std::cout << "Received request: [" << (char*) request.data() << "]" << std::endl;
+
+//    while (strcmp( (char*)request.data(), "Stop") != 0) {
+
+//    }
+
+
+
     while (true) {
         // Wait for next request from client
         zmq::message_t request;
@@ -23,17 +34,17 @@ void *worker_routine (void *arg)
         // Do some 'work'
         sleep (1);
 
-        if (strcmp( (char*)request.data(), "Hello") == 0 ){
+        if (strcmp( (char*)request.data(), "Start") == 0 ){
             // Send reply back to client
-            zmq::message_t reply (6);
-            memcpy ((void *) reply.data (), "World", 6);
+            zmq::message_t reply (21);
+            memcpy ((void *) reply.data (), "We starten het spel", 21);
             socket.send (reply);
         }
 
         if (strcmp( (char*)request.data(), "GIJS") == 0 ){
             // Send reply back to client
-            zmq::message_t reply (6);
-            memcpy ((void *) reply.data (), "JACKERS", 6);
+            zmq::message_t reply (9);
+            memcpy ((void *) reply.data (), "JACKERS", 9);
             socket.send (reply);
         }
     }
