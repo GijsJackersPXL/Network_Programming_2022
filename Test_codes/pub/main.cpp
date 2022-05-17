@@ -64,5 +64,3 @@ int main()
 
     }
 }
-
-We starten het spel\n
