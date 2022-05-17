@@ -15,23 +15,23 @@ void *worker_routine (void *arg)
     socket.connect ("inproc://workers");
 
     while (true) {
-        //  Wait for next request from client
+        // Wait for next request from client
         zmq::message_t request;
         socket.recv (&request);
         std::cout << "Received request: [" << (char*) request.data() << "]" << std::endl;
 
-        //  Do some 'work'
+        // Do some 'work'
         sleep (1);
 
         if (strcmp( (char*)request.data(), "Hello") == 0 ){
-            //  Send reply back to client
+            // Send reply back to client
             zmq::message_t reply (6);
             memcpy ((void *) reply.data (), "World", 6);
             socket.send (reply);
         }
 
         if (strcmp( (char*)request.data(), "GIJS") == 0 ){
-            //  Send reply back to client
+            // Send reply back to client
             zmq::message_t reply (6);
             memcpy ((void *) reply.data (), "JACKERS", 6);
             socket.send (reply);
@@ -43,19 +43,19 @@ void *worker_routine (void *arg)
 
 int main ()
 {
-    //  Prepare our context and sockets
+    // Prepare our context and sockets
     zmq::context_t context (1);
     zmq::socket_t clients (context, ZMQ_ROUTER);
     clients.bind ("tcp://*:5555");
     zmq::socket_t workers (context, ZMQ_DEALER);
     workers.bind ("inproc://workers");
 
-    //  Launch pool of worker threads
+    // Launch pool of worker threads
     for (int thread_nbr = 0; thread_nbr != 5; thread_nbr++) {
         pthread_t worker;
         pthread_create (&worker, NULL, worker_routine, (void *) &context);
     }
-    //  Connect work threads to client threads via a queue
+    // Connect work threads to client threads via a queue
     zmq::proxy (static_cast<void*>(clients),
                 static_cast<void*>(workers),
                 nullptr);
