@@ -1,9 +1,7 @@
 #include <zmq.h>
 #include <string.h>
-//#include <stdio.h>
 #include <unistd.h> /*sleep*/
-//#include <stdlib.h>
-//#include <string>
+#include <stdlib.h>
 #include <iostream>
 
 using namespace std;
