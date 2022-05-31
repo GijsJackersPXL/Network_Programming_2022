@@ -8,3 +8,13 @@ build-Client-Desktop_Qt_6_1_3_MinGW_64_bit-Debug/debug/Client.exe
 *.Release
 *.stash
 *.Release
+build-hwclient-Desktop_Qt_6_1_3_MinGW_64_bit-Debug/Makefile
+build-mtserver-Desktop_Qt_6_1_3_MinGW_64_bit-Debug/debug/mtserver.exe
+build-hwclient-Desktop_Qt_6_1_3_MinGW_64_bit-Debug/debug/hwclient.exe
+build-mtserver-Desktop_Qt_6_1_3_MinGW_64_bit-Debug/Makefile
+build-pub-Desktop_Qt_6_1_3_MinGW_64_bit-Debug/debug/pub.exe
+build-pub-Desktop_Qt_6_1_3_MinGW_64_bit-Debug/Makefile
+build-Server-Desktop_Qt_6_1_3_MinGW_64_bit-Debug/debug/Server.exe
+build-Server-Desktop_Qt_6_1_3_MinGW_64_bit-Debug/Makefile
+build-sub-Desktop_Qt_6_1_3_MinGW_64_bit-Debug/debug/sub.exe
+build-sub-Desktop_Qt_6_1_3_MinGW_64_bit-Debug/Makefile
