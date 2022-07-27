@@ -1,34 +1,50 @@
 #include <iostream>
 #include <zmq_addon.hpp>
+#include <vector>
+#include <string>
+#include <sstream>
+#include <iostream>
 
-static zmq::context_t ctx;
+using namespace std;
 
 int main( void )
 {
    try
    {
-       zmq::socket_t sock(ctx, zmq::socket_type::sub);
-       sock.bind("tcp://127.0.0.1:5555");
+        string strKeuzeOpnieuwGooien = "1/2/X/4/x";
 
-       {
-           std::vector<std::string> topics{ "speler1" };
-           for (auto&& topic : topics)
-               sock.setsockopt(ZMQ_SUBSCRIBE, topic.data(),topic.size());
-       }
+        // X eruit halen
+        string arrOpnieuwGooienDobbelstenen[5];
+        int arrGekozenDobbelstenen[5] = {9, 9, 9, 9, 9};
+        stringstream string_stream(strKeuzeOpnieuwGooien);
+        int lengteArray = (sizeof(arrOpnieuwGooienDobbelstenen) / sizeof(string));
+        int index = 0;
 
-
-       while (1) {
-           zmq::message_t topic;
-           zmq::message_t payload;
-           sock.recv(topic);
-           sock.recv(payload);
-
-           std::cout << "\n" << topic.to_string_view() <<
-                        " :" << payload.to_string_view();
-       }
+        for (int i = 0; i < lengteArray; i++)
+        {
+            string substr;
+            getline(string_stream, substr, '/');
+            arrOpnieuwGooienDobbelstenen[i] = substr;
+        }
+        for (int i = 0; i < lengteArray; i++)
+        {
+            if (arrOpnieuwGooienDobbelstenen[i] == "X" || arrOpnieuwGooienDobbelstenen[i] == "x")
+            {
+                arrGekozenDobbelstenen[index] = i;
+                index++;
+            }
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            if (arrGekozenDobbelstenen[i] != 9)
+            {
+                cout << arrGekozenDobbelstenen[i] << " ";
+            }
+        }
+        cout << "zullen opnieuw gegooid worden" << endl;
    }
    catch( zmq::error_t & error )
    {
-       std::cerr << "Error! : " << error.what();
+       cerr << "Error! : " << error.what();
    }
 }
