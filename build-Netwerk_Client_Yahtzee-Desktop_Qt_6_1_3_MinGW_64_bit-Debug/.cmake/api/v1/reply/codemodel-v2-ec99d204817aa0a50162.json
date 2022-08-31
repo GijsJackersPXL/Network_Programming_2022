@@ -1,0 +1,78 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.14"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Netwerk_Client_Yahtzee",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Netwerk_Client_Yahtzee::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Netwerk_Client_Yahtzee-Debug-ca22249411c083fb501a.json",
+					"name" : "Netwerk_Client_Yahtzee",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Netwerk_Client_Yahtzee_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Netwerk_Client_Yahtzee_autogen-Debug-f7a699ab0e28df48728b.json",
+					"name" : "Netwerk_Client_Yahtzee_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Netwerk_Client_Yahtzee_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Netwerk_Client_Yahtzee_autogen_timestamp_deps-Debug-a91cd7bd90587b6502d4.json",
+					"name" : "Netwerk_Client_Yahtzee_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/gijsj/Documents/1_EAI/Github/Network_Programming_2022/build-Netwerk_Client_Yahtzee-Desktop_Qt_6_1_3_MinGW_64_bit-Debug",
+		"source" : "C:/Users/gijsj/Documents/1_EAI/Github/Network_Programming_2022/Netwerk_Client_Yahtzee"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

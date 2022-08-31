@@ -1,0 +1,17 @@
+# ninja log v5
+2	232	6836629219232146	C:/Users/gijsj/Documents/1_EAI/Github/Network_Programming_2022/build-Netwerk_Server_Yahtzee-Desktop_Qt_6_1_3_MinGW_64_bit-Debug/Netwerk_Server_Yahtzee_autogen/mocs_compilation.cpp	929f41c01553d3ec
+2	232	6836629219232146	Netwerk_Server_Yahtzee_autogen/timestamp	929f41c01553d3ec
+2	232	6836629219232146	C:/Users/gijsj/Documents/1_EAI/Github/Network_Programming_2022/build-Netwerk_Server_Yahtzee-Desktop_Qt_6_1_3_MinGW_64_bit-Debug/Netwerk_Server_Yahtzee_autogen/timestamp	929f41c01553d3ec
+2	232	6836629219232146	Netwerk_Server_Yahtzee_autogen/mocs_compilation.cpp	929f41c01553d3ec
+236	304	6836629220781902	CMakeFiles/Netwerk_Server_Yahtzee.dir/Netwerk_Server_Yahtzee_autogen/mocs_compilation.cpp.obj	42dceba62ba30d75
+1889	2027	6836629237995574	Netwerk_Server_Yahtzee.exe	46ebf146f0d26b8c
+241	1885	6836629236614326	CMakeFiles/Netwerk_Server_Yahtzee.dir/main.cpp.obj	3ca16e3c8d92e2e3
+5	523	6836633151993623	build.ninja	6ba191b2a9456078
+16	239	6836633155488123	Netwerk_Server_Yahtzee_autogen/timestamp	929f41c01553d3ec
+16	239	6836633155488123	Netwerk_Server_Yahtzee_autogen/mocs_compilation.cpp	929f41c01553d3ec
+16	239	6836633155488123	C:/Users/gijsj/Documents/1_EAI/Github/Network_Programming_2022/build-Netwerk_Server_Yahtzee-Desktop_Qt_6_1_3_MinGW_64_bit-Debug/Netwerk_Server_Yahtzee_autogen/timestamp	929f41c01553d3ec
+16	239	6836633155488123	C:/Users/gijsj/Documents/1_EAI/Github/Network_Programming_2022/build-Netwerk_Server_Yahtzee-Desktop_Qt_6_1_3_MinGW_64_bit-Debug/Netwerk_Server_Yahtzee_autogen/mocs_compilation.cpp	929f41c01553d3ec
+245	314	6836633156260318	CMakeFiles/Netwerk_Server_Yahtzee.dir/Netwerk_Server_Yahtzee_autogen/mocs_compilation.cpp.obj	1e7bec9518c2aba4
+249	1288	6836633165984254	CMakeFiles/Netwerk_Server_Yahtzee.dir/Sources/main.cpp.obj	b251741313ee915b
+254	1610	6836633169185814	CMakeFiles/Netwerk_Server_Yahtzee.dir/Sources/Server_yahtzee.cpp.obj	b146d9f532069f2a
+1611	1994	6836633172985685	Netwerk_Server_Yahtzee.exe	7035d4189010647e
