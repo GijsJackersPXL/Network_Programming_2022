@@ -25,103 +25,45 @@ void Server::serverStart()
 
            while (subscriber.connected())
            {
-//               std::cout << "connected" << std::endl;
                subscriber.recv(msg);
-               std::cout << std::string( (char*) msg->data(), msg->size() ) << std::endl;
+               std::cout << std::string( (char*) msg->data(), msg->size()) << std::endl;
 
-               // -- STARTEN VAN YAHTZEE -- //
+
+               // -- NAAM SPELER -- //
                if (strncmp((char*) msg->data(), "GijsJackers>Yahtzee?>Naam", 25) == 0)
                {
-                   beurtNr++;
-                   std::string sendData = std::string((char *)msg->data());
-                   std::string strNaam = sendData.substr(sendData.find("?>Naam") + 6, (sendData.find(">>")   - (sendData.find("?>Naam") + 6)));
-                   strcpy(naamSpeler, strNaam.c_str());
-                   std::cout << "Naam van de speler: " << naamSpeler << " BeurtNr: " << beurtNr << std::endl;
-
-                   scoreBordNamen[beurtNr] = naamSpeler;
-                   opnieuwgegooid = false;
-
+                   std::string sendData = std::string((char*) msg->data(), msg->size());
+                   naam(sendData);
                }
 
+               // -- STARTEN YAHTZEE / DOBBELSTENEN --//
                else if (strncmp((char*) msg->data(), "GijsJackers>Yahtzee?>Start", 26) == 0)
                {
-                   std::cout << "-- Start Yahtzee, Rol de dobbelstenen voor " << naamSpeler << std::endl << "Zijn dobbelstenen zijn:";
-                   for (int i = 0; i < 5; i++)
-                   {
-                      charArrGegooideDobbelstenen[i] = gooiDobbelsteen() + '0';
-                      std::cout << " " << charArrGegooideDobbelstenen[i];
-                   }
-                   std::cout << std::endl;
-
-                   std::string sendTopic("GijsJackers>Yahtzee?>Dobbelstenen");
-                   for (int i = 0; i < 5; i++)
-                   {
-                       sendTopic += charArrGegooideDobbelstenen[i];
-                   }
-                   pusher.send(sendTopic.c_str(), sendTopic.length());
+                   dobbelstenenGooien();
                }
 
                // -- DOBBELSTENEN OPNIEUW GOOIEN --//
-               else if (strncmp((char*) msg->data(), "GijsJackers>Yahtzee?>DobbelstenenOpnieuw", 40) == 0)
+               else if ((strncmp((char*) msg->data(), "GijsJackers>Yahtzee?>DobbelstenenOpnieuw", 40) == 0) && abortDobbelstenenOpnieuw)
                {
-                   std::cout << std::endl << "-- Rol dobbelsteen ";
-                   std::string sendData = std::string((char *)msg->data());
-                   std::string strKeuzeOpnieuwGooien = sendData.substr(sendData.find("?>DobbelstenenOpnieuw") + 21, 9);
-                   std::string strGegooideDobbelstenen = sendData.substr(sendData.find(">>") + 2, 5);
-
-                   opnieuwgegooid = true;
-
-                   // X eruit halen
-                   std::string strArrKeuzenOpnieuwGooien[5];
-                   std::stringstream string_streamKeuze(strKeuzeOpnieuwGooien);
-                   int lengteArray = (sizeof(strArrKeuzenOpnieuwGooien) / sizeof(std::string));
-
-                   //1>2>X>4>X => {'1','2','X','4','X'}
-                   //strKeuzeOpnieuwGooien => strArrKeuzenOpnieuwGooien
-                   for (int i = 0; i < lengteArray; i++)
-                   {
-                       std::string substr;
-                       getline(string_streamKeuze, substr, '>');
-                       strArrKeuzenOpnieuwGooien[i] = substr;
-                   }
-
-                   //12345 => {'1','2','3','4','5'}
-                   //strGegooideDobbelstenen => strArrGegooideDobbelstenen
-                   for (unsigned int i = 0; i < strGegooideDobbelstenen.length(); i++)
-                   {
-                       strArrGegooideDobbelstenen[i] = strGegooideDobbelstenen[i];
-                   }
-
-                   for (int i = 0; i < lengteArray; i++)
-                   {
-                       if (strArrKeuzenOpnieuwGooien[i] == "X" || strArrKeuzenOpnieuwGooien[i] == "x")
-                       {
-                           std::cout << "'" << i + 1 << "' ";
-                           strArrGegooideDobbelstenen[i] = gooiDobbelsteen() + '0';
-                       }
-                   }
-
-                   std::cout << "opnieuw voor " << naamSpeler << std::endl << "De dobbelstenen zijn:";
-
-                   std::string sendTopic("GijsJackers>Yahtzee?>DobbelstenenOpnieuwGegooid");
-                   for (int i = 0; i < 5; i++)
-                   {
-                       sendTopic += strArrGegooideDobbelstenen[i];
-                       std::cout << " " << strArrGegooideDobbelstenen[i];
-                   }
-                   pusher.send(sendTopic.c_str(), sendTopic.length());
-                   std::cout << std::endl << std::endl;
+                  std::string sendData = std::string((char*) msg->data(), msg->size());
+                  dobbelstenenOpnieuwGooien(sendData);
                }
-               else if (strncmp((char*) msg->data(), "GijsJackers>Yahtzee?>printTabel", 31) == 0)
+
+               // -- PRINTEN TABEL --//
+               else if ((strncmp((char*) msg->data(), "GijsJackers>Yahtzee?>printTabel", 31) == 0) && abortPrintTabel)
                {
                    printTabel();
                    scoreBordPunten[beurtNr] = getTotaalPuntenSpeler();
                }
-               else if (strncmp((char*) msg->data(), "GijsJackers>Yahtzee?>printScoreBord>", 36) == 0)
+
+               // -- PRINTEN SCOREBORD --//
+               else if ((strncmp((char*) msg->data(), "GijsJackers>Yahtzee?>printScoreBord>", 36) == 0) && abortPrintScoreBord )
                {
                    printScoreBord();
                }
-               else if (strncmp((char*) msg->data(), "GijsJackers>Yahtzee?>berekenenMogelijkePunten>", 36) == 0)
+
+               // -- BEREKENEN MOGELIJKE PUNTEN --//
+               else if ((strncmp((char*) msg->data(), "GijsJackers>Yahtzee?>berekenenMogelijkePunten>", 36) == 0) && abortBerekenenMogelijkePunten)
                {
                    berekenenMogelijkePunten();
                }
@@ -131,8 +73,94 @@ void Server::serverStart()
        }
        catch( zmq::error_t & error )
        {
-           std::cerr << "Error!!!: " << error.what();
+           std::cerr << "Error: " << error.what();
        }
+}
+
+void Server::naam(std::string sendData)
+{
+    beurtNr++;
+    std::string strNaam = sendData.substr(sendData.find("?>Naam") + 6, (sendData.find(">>")   - (sendData.find("?>Naam") + 6)));
+    strcpy(naamSpeler, strNaam.c_str());
+    std::cout << "Naam van de speler: " << naamSpeler << " BeurtNr: " << beurtNr << std::endl;
+
+    scoreBordNamen[beurtNr] = naamSpeler;
+    abortDobbelstenenOpnieuw = true;
+    abortPrintTabel = true;
+    abortPrintScoreBord = true;
+    abortBerekenenMogelijkePunten = true;
+}
+
+void Server::dobbelstenenGooien()
+{
+    std::cout << "-- Start Yahtzee, Rol de dobbelstenen voor " << naamSpeler << std::endl << "Zijn dobbelstenen zijn:";
+    for (int i = 0; i < 5; i++)
+    {
+       charArrGegooideDobbelstenen[i] = gooiDobbelsteen() + '0';
+       std::cout << " " << charArrGegooideDobbelstenen[i];
+    }
+    std::cout << std::endl;
+
+    // DOBBELSTENEN DOORSTUREN
+    std::string sendTopic("GijsJackers>Yahtzee?>Dobbelstenen");
+    for (int i = 0; i < 5; i++)
+    {
+        sendTopic += charArrGegooideDobbelstenen[i];
+    }
+    pusher.send(sendTopic.c_str(), sendTopic.length());
+}
+
+
+void Server::dobbelstenenOpnieuwGooien(std::string sendData)
+{
+    std::cout << std::endl << "-- Rol dobbelsteen ";
+    std::string strKeuzeOpnieuwGooien = sendData.substr(sendData.find("?>DobbelstenenOpnieuw") + 21, 9);
+    std::string strGegooideDobbelstenen = sendData.substr(sendData.find(">>") + 2, 5);
+
+    opnieuwgegooid = true;
+
+    // X eruit halen
+    std::string strArrKeuzenOpnieuwGooien[5];
+    std::stringstream string_streamKeuze(strKeuzeOpnieuwGooien);
+    int lengteArray = (sizeof(strArrKeuzenOpnieuwGooien) / sizeof(std::string));
+
+    //1>2>X>4>X => {'1','2','X','4','X'}
+    //strKeuzeOpnieuwGooien => strArrKeuzenOpnieuwGooien
+    for (int i = 0; i < lengteArray; i++)
+    {
+        std::string substr;
+        getline(string_streamKeuze, substr, '>');
+        strArrKeuzenOpnieuwGooien[i] = substr;
+    }
+
+    //12345 => {'1','2','3','4','5'}
+    //strGegooideDobbelstenen => strArrGegooideDobbelstenen
+    for (unsigned int i = 0; i < strGegooideDobbelstenen.length(); i++)
+    {
+        strArrGegooideDobbelstenen[i] = strGegooideDobbelstenen[i];
+    }
+
+    for (int i = 0; i < lengteArray; i++)
+    {
+        if (strArrKeuzenOpnieuwGooien[i] == "X" || strArrKeuzenOpnieuwGooien[i] == "x")
+        {
+            std::cout << "'" << i + 1 << "' ";
+            strArrGegooideDobbelstenen[i] = gooiDobbelsteen() + '0';
+        }
+    }
+
+    std::cout << "opnieuw voor " << naamSpeler << std::endl << "De dobbelstenen zijn:";
+
+    std::string sendTopic("GijsJackers>Yahtzee?>DobbelstenenOpnieuwGegooid");
+    for (int i = 0; i < 5; i++)
+    {
+        sendTopic += strArrGegooideDobbelstenen[i];
+        std::cout << " " << strArrGegooideDobbelstenen[i];
+    }
+    pusher.send(sendTopic.c_str(), sendTopic.length());
+    std::cout << std::endl << std::endl;
+
+    abortDobbelstenenOpnieuw  = false;
 }
 
 int Server::gooiDobbelsteen()
@@ -217,6 +245,8 @@ void Server::printTabel()
 
     std::string sendTopic = "GijsJackers>Yahtzee?>printTabel>EindePrintTabel>";
     pusher.send(sendTopic.c_str(), sendTopic.length());
+
+    abortPrintTabel = false;
 }
 
 
@@ -267,6 +297,8 @@ void Server::printScoreBord()
 
     std::string sendTopic = "GijsJackers>Yahtzee?>printScoreBord>EindePrintScoreBord>";
     pusher.send(sendTopic.c_str(), sendTopic.length());
+
+    abortPrintScoreBord  = false;
 
 }
 
@@ -394,8 +426,6 @@ void Server::berekenenMogelijkePunten()
         std::string sendTopic = "GijsJackers>Yahtzee?>printMogelijkePunten>";
         if(gekozenPuntenSpeler1[i] == 0) //als punt al gekozen is wordt deze niet meer geprint
         {
-            //std::cout << "|------------------------| \n| " << std::to_string(i+1) << printScoreNamen(i+1) << mogelijkePunten[i] << std::endl;
-
             doorsturen = "|------------------------| \n| " + std::to_string(i+1) + ". " + printScoreNamen(i+1) + std::to_string(mogelijkePunten[i]) + " |>>";
             sendTopic += doorsturen;
             pusher.send(sendTopic.c_str(), sendTopic.length());
@@ -407,9 +437,10 @@ void Server::berekenenMogelijkePunten()
     sendTopic += doorsturen;
     pusher.send(sendTopic.c_str(), sendTopic.length());
 
-    sendTopic = "GijsJackers>Yahtzee?>printTabel>EindePrintMogelijkePunten>";
+    sendTopic = "GijsJackers>Yahtzee?>EindePrintMogelijkePunten>";
     pusher.send(sendTopic.c_str(), sendTopic.length());
 
+    abortBerekenenMogelijkePunten  = false;
 }
 
 int Server::somOgen()

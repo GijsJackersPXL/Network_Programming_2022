@@ -24,7 +24,9 @@ class Client
 
         char starten[101];
         char opnieuwgooien[101];
+        char berekenenPunten[101];
         char gekozendobbelstenen[101];
+
         char naamSpeler1[20] = "";
         char scoreBord[1];
 

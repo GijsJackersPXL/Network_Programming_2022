@@ -142,7 +142,7 @@ build Netwerk_Client_Yahtzee_autogen/timestamp Netwerk_Client_Yahtzee_autogen/mo
 #############################################
 # Phony custom command for CMakeFiles\Netwerk_Client_Yahtzee_autogen_timestamp_deps
 
-build CMakeFiles/Netwerk_Client_Yahtzee_autogen_timestamp_deps | ${cmake_ninja_workdir}CMakeFiles/Netwerk_Client_Yahtzee_autogen_timestamp_deps: phony C$:/Qt6/6.1.3/mingw81_64/./bin/moc.exe C$:/Qt6/6.1.3/mingw81_64/bin/Qt6Core.dll C$:/Qt6/6.1.3/mingw81_64/bin/Qt6Concurrent.dll
+build CMakeFiles/Netwerk_Client_Yahtzee_autogen_timestamp_deps | ${cmake_ninja_workdir}CMakeFiles/Netwerk_Client_Yahtzee_autogen_timestamp_deps: phony C$:/Qt6/6.1.3/mingw81_64/bin/Qt6Concurrent.dll C$:/Qt6/6.1.3/mingw81_64/./bin/moc.exe C$:/Qt6/6.1.3/mingw81_64/bin/Qt6Core.dll
 
 
 #############################################
