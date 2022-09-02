@@ -22,3 +22,5 @@ build-sub-Desktop_Qt_6_1_3_MinGW_64_bit-Debug/Makefile
 /build-NP-Desktop_Qt_6_1_3_MinGW_64_bit-Debug
 /build-test_broker_interaction-Desktop_Qt_6_1_3_MinGW_64_bit-Debug
 build-tester-Desktop_Qt_6_1_3_MinGW_64_bit-Debug
+/build-Netwerk_Client_Yahtzee-Desktop_Qt_6_1_3_MinGW_64_bit-Debug
+/build-Netwerk_Server_Yahtzee-Desktop_Qt_6_1_3_MinGW_64_bit-Debug

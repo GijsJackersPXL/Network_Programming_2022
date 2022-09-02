@@ -61,7 +61,7 @@ void Client::startClient()
                 std::cout << std::string( (char*) msg->data(), msg->size() ) << std::endl;
 
 
-// -- DOBBELSTENEN GOOIEN -- //
+                // -- DOBBELSTENEN GOOIEN -- //
                 if (strncmp((char*) msg->data(), "GijsJackers>Yahtzee?>Dobbelstenen", 33) == 0)
                 {
                     std::string sendData = std::string((char*) msg->data(), msg->size());
@@ -78,6 +78,7 @@ void Client::startClient()
                     }
                     std::cout << std::endl << std::endl;
                 }
+
 
                 // -- DOBBELSTENEN OPNIEUW GOOIEN -- //
                 std::cout << naamSpeler1 << " wil je de dobbelstenen opnieuw gooien? (y/n)" << std::endl << "> ";
@@ -117,6 +118,7 @@ void Client::startClient()
                 {
                     std::cout << std::endl << "Dobbelstenen niet opnieuw gooien. " << std::endl << std::endl;
                 }
+
 
                 // -- PRINTEN MOGELIJKE PUNTEN -- //
                 std::cout << naamSpeler1 << " wil je kijken welke punten je zou kunnen behalen? (y/n)" << std::endl << "> ";

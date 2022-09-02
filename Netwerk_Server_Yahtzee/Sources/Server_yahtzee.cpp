@@ -503,20 +503,3 @@ std::string Server::printScoreNamen(int getal)
     }
     return returnNaam;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
